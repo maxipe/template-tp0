@@ -35,8 +35,23 @@ public class Parser {
     }
 
     private boolean isQuantifier(int index) {
-        char character = fullExpression.charAt(index);
-        return character == '?' || character == '*' || character == '+';
+        return isZeroOrOne(index) || isZeroOrMany(index) || isOneOrMany(index);
+    }
+
+    private boolean isZeroOrOne(int index) {
+        return compareChar(index,'?');
+    }
+
+    private boolean isZeroOrMany(int index) {
+        return compareChar(index,'*');
+    }
+
+    private boolean compareChar(int index, char symbol) {
+        return fullExpression.charAt(index) == symbol;
+    }
+
+    private boolean isOneOrMany(int index) {
+        return compareChar(index,'+');
     }
 
     private boolean isCharacterIndicator(int index) {
@@ -48,15 +63,15 @@ public class Parser {
     }
 
     private boolean isDot(int index) {
-        return fullExpression.charAt(index) == '.';
+        return compareChar(index,'.');
     }
 
     private boolean isOpeningSet(int index) {
-        return fullExpression.charAt(index) == '[';
+        return compareChar(index,'[');
     }
 
     private boolean isClosingSet(int index) {
-        return fullExpression.charAt(index) == ']';
+        return compareChar(index,']');
     }
 
     private boolean lastPosition() {
@@ -91,7 +106,18 @@ public class Parser {
     }
 
     private void addQuantifier() {
+        if (index == 0) {
+            throw new IllegalArgumentException();
+        }
 
+        Expression expression = expressions.remove(expressions.size() - 1);
+        if (isZeroOrOne(index)) {
+            expressions.add(new ZeroOrOne(expression));
+        } else if (isZeroOrMany(index)) {
+            expressions.add(new Many(expression));
+        } else {
+            expressions.add(new Many(expression, true));
+        }
     }
 
     private void addCharacter(ArrayList<Expression> characters) {

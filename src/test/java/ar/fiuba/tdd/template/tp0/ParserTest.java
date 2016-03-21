@@ -104,4 +104,15 @@ public class ParserTest {
         assertEquals(expressions.get(3).getString(), "\\");
     }
 
+    @Test
+    public void testParser() throws Exception {
+        Parser parser = new Parser(".?[a\\bc]+q\\\\*");
+        parser.parse();
+        ArrayList<Expression> expressions = parser.getExpressions();
+        assertTrue(expressions.get(0) instanceof ZeroOrOne);
+        assertTrue(expressions.get(1) instanceof Many);
+        assertEquals(expressions.get(2).getString(), "q");
+        assertTrue(expressions.get(3) instanceof Many);
+    }
+
 }
