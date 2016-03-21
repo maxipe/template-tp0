@@ -36,9 +36,7 @@ public class Parser {
         if (fullExpression.charAt(index) != '\\') {
             return false;
         }
-        if (lastPosition()) {
-            throw new IllegalArgumentException();
-        }
+        verifyItIsNotLastPosition();
         return true;
     }
 
@@ -58,24 +56,29 @@ public class Parser {
         return index == fullExpression.length() - 1;
     }
 
-    private int setClosingIndex() {
+    private void verifyItIsNotLastPosition() {
         if (lastPosition()) {
             throw new IllegalArgumentException();
         }
-        int x = index + 1;
+    }
 
-        while (x < fullExpression.length()) {
-            if (isCharacterIndicator(x)) {
-                x++;
+    private int setClosingIndex() {
+        verifyItIsNotLastPosition();
+
+        int closingIndex = index + 1;
+
+        while (closingIndex < fullExpression.length()) {
+            if (isCharacterIndicator(closingIndex)) {
+                closingIndex++;
             } else {
-                if (isClosingSet(x)) {
-                    return x;
+                if (isClosingSet(closingIndex)) {
+                    return closingIndex;
                 }
-                if (isDot(x) || isOpeningSet(x)) {
+                if (isDot(closingIndex) || isOpeningSet(closingIndex)) {
                     break;
                 }
             }
-            x++;
+            closingIndex++;
         }
         throw new IllegalArgumentException();
     }
