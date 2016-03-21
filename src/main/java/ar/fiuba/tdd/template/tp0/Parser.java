@@ -18,6 +18,8 @@ public class Parser {
                 index++;
                 addCharacter();
 
+            } else if (isDot()) {
+                addDot();
             } else {
                 addCharacter();
             }
@@ -39,12 +41,16 @@ public class Parser {
         return true;
     }
 
+    private boolean isDot() {
+        return fullExpression.charAt(index) == '.';
+    }
+
     private boolean isOpeningSet(char character) {
-        return character == '[';
+        return fullExpression.charAt(index) == '[';
     }
 
     private boolean isClosingSet(char character) {
-        return character == ']';
+        return fullExpression.charAt(index) == ']';
     }
 
     private boolean lastPosition() {
@@ -53,6 +59,10 @@ public class Parser {
 
     private void addCharacter() {
         expressions.add(new Character(fullExpression.charAt(index)));
+    }
+
+    private void addDot() {
+        expressions.add(new Dot());
     }
 
 }
