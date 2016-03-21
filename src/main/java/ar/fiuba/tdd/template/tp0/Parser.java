@@ -14,12 +14,13 @@ public class Parser {
 
     public void parse() {
         while (index < fullExpression.length()) {
-            if (isCharacterIndicator()) {
+            if (isCharacterIndicator(index)) {
                 index++;
                 addCharacter();
-
-            } else if (isDot()) {
+            } else if (isDot(index)) {
                 addDot();
+            } else if (isOpeningSet(index)) {
+                addSet(setClosingIndex());
             } else {
                 addCharacter();
             }
@@ -31,7 +32,7 @@ public class Parser {
         return expressions;
     }
 
-    private boolean isCharacterIndicator() {
+    private boolean isCharacterIndicator(int index) {
         if (fullExpression.charAt(index) != '\\') {
             return false;
         }
@@ -41,15 +42,15 @@ public class Parser {
         return true;
     }
 
-    private boolean isDot() {
+    private boolean isDot(int index) {
         return fullExpression.charAt(index) == '.';
     }
 
-    private boolean isOpeningSet(char character) {
+    private boolean isOpeningSet(int index) {
         return fullExpression.charAt(index) == '[';
     }
 
-    private boolean isClosingSet(char character) {
+    private boolean isClosingSet(int index) {
         return fullExpression.charAt(index) == ']';
     }
 
@@ -57,12 +58,53 @@ public class Parser {
         return index == fullExpression.length() - 1;
     }
 
+    private int setClosingIndex() {
+        if (lastPosition()) {
+            throw new IllegalArgumentException();
+        }
+        int x = index + 1;
+
+        while (x < fullExpression.length()) {
+            if (isCharacterIndicator(x)) {
+                x++;
+            } else {
+                if (isClosingSet(x)) {
+                    return x;
+                }
+                if (isDot(x) || isOpeningSet(x)) {
+                    break;
+                }
+            }
+            x++;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    private void addCharacter(ArrayList<Expression> characters) {
+        characters.add(new Character(fullExpression.charAt(index)));
+    }
+
     private void addCharacter() {
-        expressions.add(new Character(fullExpression.charAt(index)));
+        addCharacter(this.expressions);
     }
 
     private void addDot() {
         expressions.add(new Dot());
     }
 
+    private void addSet(int closingIndex) {
+        ArrayList<Expression> characters = new ArrayList<Expression>();
+
+        index++;
+        while (index < closingIndex) {
+            if (isCharacterIndicator(index)) {
+                index++;
+                addCharacter(characters);
+            } else {
+                addCharacter(characters);
+            }
+            index++;
+        }
+        expressions.add(new Set(characters));
+    }
 }
