@@ -2,7 +2,9 @@ package ar.fiuba.tdd.template.tp0;
 
 public interface Expression {
 
-    public char getCharacter();
+    public String getString();
 
     public boolean returnedAllPossibilities();
+
+    public void resetPossibilities();
 }

@@ -9,7 +9,7 @@ public class CharacterTest {
     @Test
     public void testGetCharacter() throws Exception {
         Character character = new Character('a');
-        assertEquals(character.getCharacter(), 'a');
+        assertEquals(character.getString(), "a");
     }
 
     @Test
@@ -21,7 +21,7 @@ public class CharacterTest {
     @Test
     public void testReturnedAllPossibilitiesIsTrue() throws Exception {
         Character character = new Character('a');
-        character.getCharacter();
+        character.getString();
         assertTrue(character.returnedAllPossibilities());
     }
 }

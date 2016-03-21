@@ -11,17 +11,22 @@ public class Set implements Expression{
     }
 
     @Override
-    public char getCharacter() {
+    public String getString() {
         if (currentIndex == characters.size()) {
-            return characters.get(currentIndex - 1).getCharacter();
+            return characters.get(currentIndex - 1).getString();
         }
-        char character =  characters.get(currentIndex).getCharacter();
+        String string =  characters.get(currentIndex).getString();
         currentIndex++;
-        return character;
+        return string;
     }
 
     @Override
     public boolean returnedAllPossibilities() {
         return currentIndex == characters.size();
+    }
+
+    @Override
+    public void resetPossibilities() {
+        currentIndex = 0;
     }
 }

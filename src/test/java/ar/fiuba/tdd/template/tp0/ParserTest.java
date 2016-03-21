@@ -13,9 +13,9 @@ public class ParserTest {
         Parser parser = new Parser("abc");
         parser.parse();
         ArrayList<Expression> expressions = parser.getExpressions();
-        assertEquals(expressions.get(0).getCharacter(), 'a');
-        assertEquals(expressions.get(1).getCharacter(), 'b');
-        assertEquals(expressions.get(2).getCharacter(), 'c');
+        assertEquals(expressions.get(0).getString(), "a");
+        assertEquals(expressions.get(1).getString(), "b");
+        assertEquals(expressions.get(2).getString(), "c");
     }
 
     @Test
@@ -23,9 +23,9 @@ public class ParserTest {
         Parser parser = new Parser("a\\bc");
         parser.parse();
         ArrayList<Expression> expressions = parser.getExpressions();
-        assertEquals(expressions.get(0).getCharacter(), 'a');
-        assertEquals(expressions.get(1).getCharacter(), 'b');
-        assertEquals(expressions.get(2).getCharacter(), 'c');
+        assertEquals(expressions.get(0).getString(), "a");
+        assertEquals(expressions.get(1).getString(), "b");
+        assertEquals(expressions.get(2).getString(), "c");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -57,10 +57,10 @@ public class ParserTest {
         Parser parser = new Parser("a\\..b");
         parser.parse();
         ArrayList<Expression> expressions = parser.getExpressions();
-        assertEquals(expressions.get(0).getCharacter(), 'a');
-        assertEquals(expressions.get(1).getCharacter(), '.');
+        assertEquals(expressions.get(0).getString(), "a");
+        assertEquals(expressions.get(1).getString(), ".");
         assertTrue(expressions.get(2) instanceof Dot);
-        assertEquals(expressions.get(3).getCharacter(), 'b');
+        assertEquals(expressions.get(3).getString(), "b");
     }
 
     @Test
@@ -70,9 +70,9 @@ public class ParserTest {
         ArrayList<Expression> expressions = parser.getExpressions();
         assertTrue(expressions.get(0) instanceof Set);
         Set set = (Set)expressions.get(0);
-        assertEquals(set.getCharacter(), 'a');
-        assertEquals(set.getCharacter(), 'b');
-        assertEquals(set.getCharacter(), 'c');
+        assertEquals(set.getString(), "a");
+        assertEquals(set.getString(), "b");
+        assertEquals(set.getString(), "c");
     }
 
     @Test
@@ -82,9 +82,9 @@ public class ParserTest {
         ArrayList<Expression> expressions = parser.getExpressions();
         assertTrue(expressions.get(0) instanceof Set);
         Set set = (Set)expressions.get(0);
-        assertEquals(set.getCharacter(), 'a');
-        assertEquals(set.getCharacter(), 'b');
-        assertEquals(set.getCharacter(), 'c');
+        assertEquals(set.getString(), "a");
+        assertEquals(set.getString(), "b");
+        assertEquals(set.getString(), "c");
     }
 
     @Test
@@ -96,12 +96,12 @@ public class ParserTest {
         assertTrue(expressions.get(1) instanceof Set);
 
         Set set = (Set)expressions.get(1);
-        assertEquals(set.getCharacter(), 'a');
-        assertEquals(set.getCharacter(), 'b');
-        assertEquals(set.getCharacter(), 'c');
+        assertEquals(set.getString(), "a");
+        assertEquals(set.getString(), "b");
+        assertEquals(set.getString(), "c");
 
-        assertEquals(expressions.get(2).getCharacter(), 'q');
-        assertEquals(expressions.get(3).getCharacter(), '\\');
+        assertEquals(expressions.get(2).getString(), "q");
+        assertEquals(expressions.get(3).getString(), "\\");
     }
 
 }

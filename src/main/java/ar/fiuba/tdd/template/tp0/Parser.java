@@ -14,7 +14,9 @@ public class Parser {
 
     public void parse() {
         while (index < fullExpression.length()) {
-            if (isCharacterIndicator(index)) {
+            if (isQuantifier(index)) {
+                addQuantifier();
+            } else if (isCharacterIndicator(index)) {
                 index++;
                 addCharacter();
             } else if (isDot(index)) {
@@ -30,6 +32,11 @@ public class Parser {
 
     public ArrayList<Expression> getExpressions() {
         return expressions;
+    }
+
+    private boolean isQuantifier(int index) {
+        char character = fullExpression.charAt(index);
+        return character == '?' || character == '*' || character == '+';
     }
 
     private boolean isCharacterIndicator(int index) {
@@ -81,6 +88,10 @@ public class Parser {
             closingIndex++;
         }
         throw new IllegalArgumentException();
+    }
+
+    private void addQuantifier() {
+
     }
 
     private void addCharacter(ArrayList<Expression> characters) {

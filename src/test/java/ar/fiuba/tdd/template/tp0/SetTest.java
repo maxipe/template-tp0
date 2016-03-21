@@ -28,8 +28,8 @@ public class SetTest {
     @Test
     public void testGetCharacter() throws Exception {
         Set set = initializeSet();
-        assertEquals(set.getCharacter(), 'a');
-        assertEquals(set.getCharacter(), 'b');
+        assertEquals(set.getString(), "a");
+        assertEquals(set.getString(), "b");
     }
 
     @Test
@@ -41,9 +41,9 @@ public class SetTest {
     @Test
     public void testReturnedAllPossibilitiesIsTrue() throws Exception {
         Set set = initializeSet();
-        set.getCharacter();
-        set.getCharacter();
-        set.getCharacter();
+        set.getString();
+        set.getString();
+        set.getString();
         assertTrue(set.returnedAllPossibilities());
     }
 }

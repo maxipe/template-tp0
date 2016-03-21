@@ -9,13 +9,18 @@ public class Character implements Expression {
     }
 
     @Override
-    public char getCharacter() {
+    public String getString() {
         this.hasReturnedAllPossibilities = true;
-        return character;
+        return java.lang.Character.toString(character);
     }
 
     @Override
     public boolean returnedAllPossibilities() {
         return this.hasReturnedAllPossibilities;
+    }
+
+    @Override
+    public void resetPossibilities() {
+        hasReturnedAllPossibilities = false;
     }
 }

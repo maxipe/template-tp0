@@ -5,17 +5,22 @@ public class Dot implements Expression {
     private int currentIndex = 0;
 
     @Override
-    public char getCharacter() {
+    public String getString() {
         if (currentIndex == alphabet.length()) {
-            return alphabet.charAt(currentIndex - 1);
+            return java.lang.Character.toString(alphabet.charAt(currentIndex - 1));
         }
         char character = alphabet.charAt(currentIndex);
         currentIndex++;
-        return character;
+        return java.lang.Character.toString(character);
     }
 
     @Override
     public boolean returnedAllPossibilities() {
         return currentIndex == alphabet.length();
+    }
+
+    @Override
+    public void resetPossibilities() {
+        currentIndex = 0;
     }
 }
