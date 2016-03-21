@@ -12,6 +12,9 @@ public class ZeroOrOne implements Expression {
     @Override
     public String getString() {
         String string = expression.getString();
+        if (!hasUsedAllPossibilitiesOnce) {
+            string = "";
+        }
         if (expression.returnedAllPossibilities()) {
             if (hasUsedAllPossibilitiesOnce) {
                 hasReturnedAllPossibilities = true;
