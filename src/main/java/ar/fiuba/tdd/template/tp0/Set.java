@@ -3,11 +3,11 @@ package ar.fiuba.tdd.template.tp0;
 import java.util.ArrayList;
 
 public class Set implements Expression{
-    private ArrayList<Character> characters;
+    private ArrayList<Expression> characters;
     private int currentIndex = 0;
 
-    public Set(ArrayList<Character> characters) {
-        this.characters = new ArrayList<Character>(characters);
+    public Set(ArrayList<Expression> characters) {
+        this.characters = new ArrayList<Expression>(characters);
     }
 
     @Override

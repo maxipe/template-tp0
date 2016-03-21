@@ -15,7 +15,7 @@ public class SetTest {
         Character first = new Character('a');
         Character second = new Character('b');
         Character third = new Character('c');
-        ArrayList<Character> characters = new ArrayList<Character>() {
+        ArrayList<Expression> characters = new ArrayList<Expression>() {
             {
                 add(first);
                 add(second);
@@ -29,6 +29,7 @@ public class SetTest {
     public void testGetCharacter() throws Exception {
         Set set = initializeSet();
         assertEquals(set.getCharacter(), 'a');
+        assertEquals(set.getCharacter(), 'b');
     }
 
     @Test
